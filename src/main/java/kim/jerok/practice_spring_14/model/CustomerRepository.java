@@ -35,12 +35,12 @@ public class CustomerRepository {
             
             statement.executeUpdate();  // flush
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage());  // sentry.io
             throw new RuntimeException(e.getSQLState());
         } finally {
             try {
                 statement.close();
-                connection.close();
+                connection.close();  // DBCP에 커넥션 반납
             } catch (SQLException e) {
                 log.error(e.getMessage());
             }
