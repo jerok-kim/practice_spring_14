@@ -1,5 +1,6 @@
 package kim.jerok.practice_spring_14.model;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -13,6 +14,7 @@ public class Customer {
         System.out.println("Jackson 발동시 디폴트 생성자 실행");
     }
 
+    @Builder
     public Customer(Long id, String name, String tel) {
         System.out.println("조회시에 mapper 동작할 때 풀 생성자 실행");
         this.id = id;

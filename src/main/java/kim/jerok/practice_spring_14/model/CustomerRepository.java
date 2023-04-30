@@ -28,11 +28,11 @@ public class CustomerRepository {
         try {
             String sql = "INSERT INTO customer (name, tel) VALUES (?, ?)";  // 쿼리 만들기
             connection = dataSource.getConnection();  // DBCP에서 connection 가져오기
-            
+
             statement = connection.prepareStatement(sql);  // 버퍼에 SQL을 담기
             statement.setString(1, customer.getName());  // ? 바인딩
             statement.setString(2, customer.getTel());  // ? 바인딩
-            
+
             statement.executeUpdate();  // flush
         } catch (SQLException e) {
             log.error(e.getMessage());  // sentry.io
@@ -154,9 +154,14 @@ public class CustomerRepository {
         }
     }
 
-    // Object Relational Mapping
+    // Object Mapping
     public Customer mapper(ResultSet rs) throws SQLException {
         System.out.println("mapper 실행");
-        return new Customer(rs.getLong("id"), rs.getString("name"), rs.getString("tel"));
+        return Customer.builder()
+                .id(rs.getLong("id"))
+                .name(rs.getString("name"))
+                .tel(rs.getString("tel"))
+                .build();
+        // return new Customer(rs.getLong("id"), rs.getString("name"), rs.getString("tel"));
     }
 }
